@@ -1,19 +1,19 @@
 package com.udayanga.form.model;
 
 public class Place {
-    private String placeId;
+    private Integer placeId;
     private String placeName;
     private String placeDescription;
     private String placeType;
     private int rate;
-    private String cityId;
+    private Integer cityId;
     private String placeImgUrl;
 
 
     public Place() {
     }
 
-    public Place(String placeId, String placeName, String placeDescription, String placeType, int rate, String cityId, String placeImgUrl) {
+    public Place(Integer placeId, String placeName, String placeDescription, String placeType, int rate, Integer cityId, String placeImgUrl) {
         this.placeId = placeId;
         this.placeName = placeName;
         this.placeDescription = placeDescription;
@@ -23,7 +23,7 @@ public class Place {
         this.placeImgUrl = placeImgUrl;
     }
 
-    public String getPlaceId() {
+    public Integer getPlaceId() {
         return placeId;
     }
 
@@ -43,7 +43,7 @@ public class Place {
         return rate;
     }
 
-    public String getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
@@ -51,7 +51,7 @@ public class Place {
         return placeImgUrl;
     }
 
-    public void setPlaceId(String placeId) {
+    public void setPlaceId(Integer placeId) {
         this.placeId = placeId;
     }
 
@@ -71,11 +71,15 @@ public class Place {
         this.rate = rate;
     }
 
-    public void setCityId(String cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
     public void setPlaceImgUrl(String placeImgUrl) {
         this.placeImgUrl = placeImgUrl;
+    }
+
+    public boolean isNew() {
+        return (this.placeId == null);
     }
 }

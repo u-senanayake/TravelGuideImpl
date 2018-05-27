@@ -29,30 +29,34 @@
             <th>#ID</th>
             <th>Name</th>
             <th>Description</th>
+            <th>Type</th>
             <th>Rate</th>
+            <th>City Id</th>
             <th>Img</th>
-            <th>Actions</th>
+
         </tr>
         </thead>
 
-        <c:forEach var="city" items="${cities}">
+        <c:forEach var="place" items="${places}">
             <tr>
-                <td>${city.cityID}</td>
-                <td>${city.cityName}</td>
-                <td>${city.cityDescription}</td>
+                <td>${place.placeId}</td>
+                <td>${place.placeName}</td>
+                <td>${place.placeDescription}</td>
                     <%--<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">--%>
                     <%--${framework}--%>
                     <%--<c:if test="${not loop.last}">,</c:if>--%>
                     <%--</c:forEach></td>--%>
                     <%--<td>--%>
-                <td>${city.rate}</td>
-                <td>${city.rate}</td>
+                <td>${place.placeType}</td>
+                <td>${place.rate}</td>
+                <td>${place.cityId}</td>
+                <td>${place.placeImgUrl}</td>
                 <td>
-                    <spring:url value="/cities/${city.cityID}" var="cityUrl"/>
-                    <spring:url value="/cities/${city.cityID}/delete" var="deleteUrl"/>
-                    <spring:url value="/cities/${city.cityID}/update" var="updateUrl"/>
+                    <spring:url value="/places/${place.placeId}" var="placeUrl"/>
+                    <spring:url value="/places/${place.placeId}/delete" var="deleteUrl"/>
+                    <spring:url value="/places/${place.placeId}/update" var="updateUrl"/>
 
-                    <button class="btn btn-info" onclick="location.href='${cityUrl}'">Query</button>
+                    <button class="btn btn-info" onclick="location.href='${placeUrl}'">Query</button>
                     <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Update</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
                 </td>

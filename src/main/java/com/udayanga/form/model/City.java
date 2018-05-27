@@ -1,7 +1,7 @@
 package com.udayanga.form.model;
 
 public class City {
-    private int cityID;
+    private Integer cityID;
     private String cityName;
     private String cityDescription;
     private int rate;
@@ -19,7 +19,7 @@ public class City {
 
     }
 
-    public void setCityID(int cityID) {
+    public void setCityID(Integer cityID) {
         this.cityID = cityID;
     }
 
@@ -39,7 +39,7 @@ public class City {
         this.cityImgUrl = cityImgUrl;
     }
 
-    public int getCityID() {
+    public Integer getCityID() {
         return cityID;
     }
 
@@ -57,5 +57,9 @@ public class City {
 
     public String getCityImgUrl() {
         return cityImgUrl;
+    }
+
+    public boolean isNew() {
+        return (this.cityID == null);
     }
 }

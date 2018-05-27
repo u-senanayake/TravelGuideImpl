@@ -1,8 +1,7 @@
 package com.udayanga.form.web;
 
-import com.udayanga.form.model.City;
-import com.udayanga.form.model.User;
-import com.udayanga.form.service.CityService;
+import com.udayanga.form.model.Place;
+import com.udayanga.form.service.PlaceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,124 +15,131 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
-public class CityController {
+public class PlaceController {
     private final Logger logger = LoggerFactory.getLogger(CityController.class);
 
-    private CityService cityService;
+    private PlaceService placeService;
 
     @Autowired
-    public void setCityService(CityService cityService) {
-        this.cityService = cityService;
+    public void setPlaceService(PlaceService placeService) {
+        this.placeService = placeService;
     }
 
     // list page
-    @RequestMapping(value = "/cities", method = RequestMethod.GET)
+    @RequestMapping(value = "/places", method = RequestMethod.GET)
     public String showAllCities(Model model) {
 
-        logger.debug("showAllCities()");
-        model.addAttribute("cities", cityService.findAll());
-        return "city/list";
+        logger.debug("showAllPlaces()");
+        model.addAttribute("places", placeService.findAll());
+        return "place/list";
 
     }
 
-    @RequestMapping(value = "/cities", method = RequestMethod.POST)
-    public String saveOrUpdateCity(@ModelAttribute("cityForm") @Validated City city, BindingResult result,
+    @RequestMapping(value = "/places", method = RequestMethod.POST)
+    public String saveOrUpdateCity(@ModelAttribute("placeForm") @Validated Place place, BindingResult result,
                                    Model model, final RedirectAttributes redirectAttributes) {
-        logger.debug("saveOrUpdateCity() : {})", city);
+        logger.debug("saveOrUpdatePlace() : {})", place);
         if (result.hasErrors()) {
             populateDefaultModel(model);
-            return "city/cityform";
+            return "place/placeform";
         } else {
 
             redirectAttributes.addFlashAttribute("css", "success");
-            if (city.isNew()) {
+            if (place.isNew()) {
                 redirectAttributes.addFlashAttribute("msg", "City added successfully!");
             } else {
                 redirectAttributes.addFlashAttribute("msg", "City updated successfully!");
             }
 
-            cityService.saveOrUpdate(city);
+            placeService.saveOrUpdate(place);
 
             // POST/REDIRECT/GET
-            return "redirect:/cities/" + city.getCityID();
+            return "redirect:/places/" + place.getPlaceId();
 
             // POST/FORWARD/GET
             // return "user/list";
 
         }
     }
+
     // show add user form
-    @RequestMapping(value = "/cities/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/places/add", method = RequestMethod.GET)
     public String showAddUserForm(Model model) {
 
-        logger.debug("showAddCityForm()");
+        logger.debug("showAddPlaceForm()");
 
-        City city = new City();
+        Place place = new Place();
 
         // set default value
 
-        city.setCityName("Default Name");
-        city.setCityDescription("Default Description");
-        city.setRate(5);
-        city.setCityImgUrl("Image URL");
-
-        model.addAttribute("cityForm", city);
+        place.setPlaceName("Default Name");
+        place.setPlaceDescription("Default Description");
+        place.setRate(5);
+        place.setPlaceType("Default type");
+        place.setCityId(1);
+        place.setPlaceImgUrl("Image");
+        model.addAttribute("placeForm", place);
 
         populateDefaultModel(model);
 
-        return "city/cityform";
+        return "pace/placeform";
 
     }
 
     // show update form
-    @RequestMapping(value = "/cities/{id}/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/places/{id}/update", method = RequestMethod.GET)
     public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
 
-        logger.debug("showUpdateCityForm() : {}", id);
+        logger.debug("showUpdatePlaceForm() : {}", id);
 
-        City city = cityService.findById(id);
-        model.addAttribute("cityForm", city);
+        Place place = placeService.findById(id);
+        model.addAttribute("placeForm", place);
 
         populateDefaultModel(model);
 
-        return "city/cityform";
+        return "place/placeform";
 
     }
 
+
     // delete user
-    @RequestMapping(value = "/cities/{id}/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/places/{id}/delete", method = RequestMethod.POST)
     public String deleteUser(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
 
-        logger.debug("deleteCity() : {}", id);
+        logger.debug("deletePlace() : {}", id);
 
-        cityService.delete(id);
+        placeService.delete(id);
 
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "User is deleted!");
 
-        return "redirect:/cities";
+        return "redirect:/places";
 
     }
 
     // show user
-    @RequestMapping(value = "/cities/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/places/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) {
 
-        logger.debug("showCity() id: {}", id);
+        logger.debug("showPlace() id: {}", id);
 
-        City city = cityService.findById(id);
-        if (city == null) {
+        Place place = placeService.findById(id);
+        if (place == null) {
             model.addAttribute("css", "danger");
             model.addAttribute("msg", "User not found");
         }
-        model.addAttribute("city", city);
+        model.addAttribute("place", place);
 
-        return "city/show";
+        return "place/show";
 
     }
+
     private void populateDefaultModel(Model model) {
 
         List<String> frameworksList = new ArrayList<String>();
@@ -177,11 +183,10 @@ public class CityController {
         logger.error("Request: {}, error ", req.getRequestURL(), ex);
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("city/show");
+        model.setViewName("place/show");
         model.addObject("msg", "City not found");
 
         return model;
 
     }
-
 }

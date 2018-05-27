@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Repository
 public class CityDaoImpl implements CityDao {
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException {
@@ -34,7 +34,7 @@ public class CityDaoImpl implements CityDao {
 
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        String sql = "SELECT * FROM users WHERE id=:id";
+        String sql = "SELECT * FROM city WHERE city_id=:id";
         City result = null;
         try {
             result = namedParameterJdbcTemplate.queryForObject(sql, params, new CityMapper());
@@ -53,22 +53,23 @@ public class CityDaoImpl implements CityDao {
     @Override
     public void save(City city) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String sql = "INSERT INTO CITY(CITY_ID, CITY_NAME, CITY_DESCRIPTION, RATE, CITY_IMG_URL) "
-                + "VALUES ( :cityId, :cityName, :cityDescription, :rate, :cityImgUrl)";
+        String sql = "INSERT INTO CITY( CITY_NAME, CITY_DESCRIPTION, RATE, CITY_IMG_URL) "
+                + "VALUES (  :cityName, :cityDescription, :rate, :cityImgUrl)";
         namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(city), keyHolder);
+        city.setCityID(keyHolder.getKey().intValue());
 
     }
 
     @Override
     public void update(City city) {
-        String sql = "UPDATE CITY SET  CITY_NAME=:cityName, CITY_DESCRIPTION=:cityDescription, RATE:rate, CITY_IMG_URL=:cityImgUrl WHERE id=:cityId";
+        String sql = "UPDATE CITY SET  CITY_NAME=:cityName, CITY_DESCRIPTION=:cityDescription, RATE=:rate, CITY_IMG_URL=:cityImgUrl WHERE city_id = :cityId ";
 
         namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(city));
     }
 
     @Override
     public void delete(Integer id) {
-        String sql = "DELETE FROM CITY WHERE id= :cityId";
+        String sql = "DELETE FROM CITY WHERE city_id= :cityId";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("cityId", id));
     }
 
@@ -76,9 +77,9 @@ public class CityDaoImpl implements CityDao {
 
         // Unable to handle List<String> or Array
         // BeanPropertySqlParameterSource
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        city.setCityID(keyHolder.getKey().intValue());
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//
+//        city.setCityID(keyHolder.getKey().intValue());
 
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("cityId", city.getCityID());
@@ -108,7 +109,7 @@ public class CityDaoImpl implements CityDao {
             city.setRate(resultSet.getInt("RATE"));
             city.setCityImgUrl(resultSet.getString("CITY_IMG_URL"));
 
-            return null;
+            return city;
         }
     }
 }
