@@ -11,7 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -54,4 +60,17 @@ public class PackageController {
 
     }
 
+    // delete place
+    @RequestMapping(value = "/packages/{packageId}/{placeId}/delete", method = RequestMethod.POST)
+    public String deleteUser(@PathVariable("packageId") int packageId, @PathVariable("placeId") int placeId, final RedirectAttributes redirectAttributes) {
+
+        logger.debug("deletePlaceByPackage() : {} {}", packageId, placeId);
+
+        packageService.deletePlaceByPackage(packageId, placeId);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Place is deleted!");
+
+        return "redirect:/packages/" + packageId;
+
+    }
 }

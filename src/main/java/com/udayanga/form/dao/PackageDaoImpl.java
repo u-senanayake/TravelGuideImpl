@@ -1,11 +1,11 @@
 package com.udayanga.form.dao;
 
-import com.udayanga.form.mapper.CityMapper;
 import com.udayanga.form.mapper.PlaceMapper;
 import com.udayanga.form.model.Package;
 import com.udayanga.form.model.Place;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,9 +14,7 @@ import org.springframework.util.StringUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class PackageDaoImpl implements PackageDao {
@@ -30,7 +28,19 @@ public class PackageDaoImpl implements PackageDao {
 
     @Override
     public Package findById(Integer id) {
-        return null;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", id);
+
+        String sql = "SELECT * FROM package WHERE package_id=:id";
+
+        Package aPackage = null;
+        try {
+            aPackage = namedParameterJdbcTemplate.queryForObject(sql, params, new PackageMapper());
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing, return null
+        }
+
+        return aPackage;
     }
 
     @Override
@@ -57,9 +67,15 @@ public class PackageDaoImpl implements PackageDao {
 
     @Override
     public List<Place> findPlacesByPackage(Integer id) {
-        String sql="select * from place where place_id in ( select place_id from package_place where package_id = :id group by place_id) ;";
-        List<Place> places= namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource("id", id), new PlaceMapper());
+        String sql = "select * from place where place_id in ( select place_id from package_place where package_id = :id group by place_id) ;";
+        List<Place> places = namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource("id", id), new PlaceMapper());
         return places;
+    }
+
+    @Override
+    public void deletePlaceByPackage(Integer packageId, Integer placeId) {
+        String sql = "delete from package_place where package_id= :packageId and place_id = :placeId";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("packageId", packageId).addValue("placeId", placeId));
     }
 
 

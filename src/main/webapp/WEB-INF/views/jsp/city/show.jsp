@@ -20,7 +20,7 @@
 		</div>
 	</c:if>
 
-	<h1>User Detail</h1>
+	<h1>City Detail</h1>
 	<br />
 
 	<div class="row">

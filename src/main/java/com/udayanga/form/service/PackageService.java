@@ -15,4 +15,8 @@ public interface PackageService {
     void delete(int id);
 
     List<Place> findPlacesByPackage(Integer id);
+
+    void deletePlaceByPackage(Integer packageId, Integer placeId);
+
+
 }

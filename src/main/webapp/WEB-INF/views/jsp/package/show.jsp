@@ -21,46 +21,151 @@
     </c:if>
 
     <h1>Package Detail</h1>
-    <h1>Places</h1>
+    <div class="row">
+        <label class="col-sm-2">Name</label>
+        <div class="col-sm-10">${package.packageName}</div>
+    </div>
     <table class="table table-striped table-bordered">
-        <thead>
         <tr>
-            <th>#ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Rate</th>
-            <th>City Id</th>
-            <th>Img</th>
+            <td width="80%">
+                <div>
+                    <h1>Places</h1>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Rate</th>
+                            <th>City Id</th>
+                            <th>Img</th>
 
+                        </tr>
+                        </thead>
+
+                        <c:forEach var="place" items="${places}">
+                            <tr>
+                                <td>${place.placeId}</td>
+                                <td>${place.placeName}</td>
+                                <td>${place.placeDescription}</td>
+                                    <%--<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">--%>
+                                    <%--${framework}--%>
+                                    <%--<c:if test="${not loop.last}">,</c:if>--%>
+                                    <%--</c:forEach></td>--%>
+                                    <%--<td>--%>
+                                <td>${place.placeType}</td>
+                                <td>${place.rate}</td>
+                                <td>${place.cityId}</td>
+                                <td><img src="${place.placeImgUrl}"></td>
+                                <td>
+                                    <spring:url value="/places/${package.packageID}/${place.placeId}/delete"
+                                                var="deleteUrl"/>
+                                    <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <button class="btn btn-primary" onclick="">Edit Places</button>
+                </div>
+            </td>
+            <td width="20%" rowspan="3">test2</td>
         </tr>
-        </thead>
+        <tr>
+            <td>
+                <div>
+                    <h1>Hotels</h1>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Rate</th>
+                            <th>City Id</th>
+                            <th>Img</th>
 
-        <c:forEach var="place" items="${places}">
-            <tr>
-                <td>${place.placeId}</td>
-                <td>${place.placeName}</td>
-                <td>${place.placeDescription}</td>
-                    <%--<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">--%>
-                    <%--${framework}--%>
-                    <%--<c:if test="${not loop.last}">,</c:if>--%>
-                    <%--</c:forEach></td>--%>
-                    <%--<td>--%>
-                <td>${place.placeType}</td>
-                <td>${place.rate}</td>
-                <td>${place.cityId}</td>
-                <td>${place.placeImgUrl}</td>
-                <td>
-                    <spring:url value="/places/${place.placeId}" var="packageUrl"/>
-                    <spring:url value="/places/${place.placeId}/delete" var="deleteUrl"/>
-                    <spring:url value="/places/${place.placeId}/update" var="updateUrl"/>
+                        </tr>
+                        </thead>
 
-                    <button class="btn btn-info" onclick="location.href='${packageUrl}'">Query</button>
-                    <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Update</button>
-                    <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
-                </td>
-            </tr>
-        </c:forEach>
+                        <c:forEach var="place" items="${places}">
+                            <tr>
+                                <td>${place.placeId}</td>
+                                <td>${place.placeName}</td>
+                                <td>${place.placeDescription}</td>
+                                    <%--<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">--%>
+                                    <%--${framework}--%>
+                                    <%--<c:if test="${not loop.last}">,</c:if>--%>
+                                    <%--</c:forEach></td>--%>
+                                    <%--<td>--%>
+                                <td>${place.placeType}</td>
+                                <td>${place.rate}</td>
+                                <td>${place.cityId}</td>
+                                <td><img src="${place.placeImgUrl}"></td>
+                                <td>
+                                    <spring:url value="/places/${package.packageID}/${place.placeId}/delete"
+                                                var="deleteUrl"/>
+                                    <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <button class="btn btn-primary" onclick="">Edit Hotels</button>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <h1>Transport</h1>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Rate</th>
+                            <th>City Id</th>
+                            <th>Img</th>
+
+                        </tr>
+                        </thead>
+
+                        <c:forEach var="place" items="${places}">
+                            <tr>
+                                <td>${place.placeId}</td>
+                                <td>${place.placeName}</td>
+                                <td>${place.placeDescription}</td>
+                                    <%--<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">--%>
+                                    <%--${framework}--%>
+                                    <%--<c:if test="${not loop.last}">,</c:if>--%>
+                                    <%--</c:forEach></td>--%>
+                                    <%--<td>--%>
+                                <td>${place.placeType}</td>
+                                <td>${place.rate}</td>
+                                <td>${place.cityId}</td>
+                                <td><img src="${place.placeImgUrl}"></td>
+                                <td>
+                                    <spring:url value="/places/${package.packageID}/${place.placeId}/delete"
+                                                var="deleteUrl"/>
+                                    <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <button class="btn btn-primary" onclick="">Edit Transport</button>
+                </div>
+            </td>
+        </tr>
     </table>
     <br/>
 

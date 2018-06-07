@@ -46,4 +46,10 @@ public class PackageServiceImpl implements PackageService {
     public List<Place> findPlacesByPackage(Integer id) {
         return packageDao.findPlacesByPackage(id);
     }
+
+    @Override
+    public void deletePlaceByPackage(Integer packageId, Integer placeId) {
+        packageDao.deletePlaceByPackage(packageId, placeId);
+    }
+
 }

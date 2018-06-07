@@ -21,7 +21,7 @@
         </div>
     </c:if>
 
-    <h1>All Cities</h1>
+    <h1>All Packages</h1>
 
     <table class="table table-striped">
         <thead>

@@ -13,10 +13,10 @@
 
     <c:choose>
         <c:when test="${placeForm['new']}">
-            <h1>Add City</h1>
+            <h1>Add Place</h1>
         </c:when>
         <c:otherwise>
-            <h1>Update City</h1>
+            <h1>Update Place</h1>
         </c:otherwise>
     </c:choose>
     <br/>
@@ -29,7 +29,7 @@
 
         <spring:bind path="placeName">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label class="col-sm-2 control-label">City Name</label>
+                <label class="col-sm-2 control-label">Place Name</label>
                 <div class="col-sm-10">
                     <form:input path="placeName" type="text" class="form-control " id="placeName" placeholder="Name"/>
                     <form:errors path="placeName" class="control-label"/>

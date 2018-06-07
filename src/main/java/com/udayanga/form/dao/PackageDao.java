@@ -18,4 +18,7 @@ public interface PackageDao {
     void delete(Integer id);
 
     List<Place> findPlacesByPackage(Integer id);
+
+    void deletePlaceByPackage(Integer packageId, Integer placeId);
+
 }
