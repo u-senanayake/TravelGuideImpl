@@ -1,5 +1,6 @@
 package com.udayanga.form.dao;
 
+import com.udayanga.form.mapper.CityMapper;
 import com.udayanga.form.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -98,7 +99,7 @@ public class CityDaoImpl implements CityDao {
         return paramSource;
     }
 
-    private static final class CityMapper implements RowMapper<City> {
+   /* private static final class CityMapper implements RowMapper<City> {
 
         @Override
         public City mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -111,5 +112,5 @@ public class CityDaoImpl implements CityDao {
 
             return city;
         }
-    }
+    }*/
 }

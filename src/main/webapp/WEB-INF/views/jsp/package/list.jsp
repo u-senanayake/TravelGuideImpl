@@ -23,38 +23,32 @@
 
     <h1>All Cities</h1>
 
-    <table id="example" class="table table-striped table-bordered">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>#ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Rate</th>
-            <th>City Id</th>
-            <th>Img</th>
-
+            <th>Cities</th>
+            <th>Places</th>
         </tr>
         </thead>
 
-        <c:forEach var="place" items="${places}">
+        <c:forEach var="package" items="${packages}">
             <tr>
-                <td>${place.placeId}</td>
-                <td>${place.placeName}</td>
-                <td>${place.placeDescription}</td>
-                    <%--<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">--%>
-                    <%--${framework}--%>
-                    <%--<c:if test="${not loop.last}">,</c:if>--%>
-                    <%--</c:forEach></td>--%>
-                    <%--<td>--%>
-                <td>${place.placeType}</td>
-                <td>${place.rate}</td>
-                <td>${place.cityId}</td>
-                <td>${place.placeImgUrl}</td>
+                <td>${package.packageID}</td>
+                <td>${package.packageName}</td>
+                <td><c:forEach var="city" items="${package.cities}" varStatus="loop">
+                    ${city}
+                    <c:if test="${not loop.last}">,</c:if>
+                </c:forEach></td>
+                <td><c:forEach var="places" items="${package.places}" varStatus="loop">
+                    ${places}
+                    <c:if test="${not loop.last}">,</c:if>
+                </c:forEach></td>
                 <td>
-                    <spring:url value="/places/${place.placeId}" var="packageUrl"/>
-                    <spring:url value="/places/${place.placeId}/delete" var="deleteUrl"/>
-                    <spring:url value="/places/${place.placeId}/update" var="updateUrl"/>
+                    <spring:url value="/packages/${package.packageID}" var="packageUrl"/>
+                    <spring:url value="/packages/${package.packageID}/delete" var="deleteUrl"/>
+                    <spring:url value="/packages/${package.packageID}/update" var="updateUrl"/>
 
                     <button class="btn btn-info" onclick="location.href='${packageUrl}'">Query</button>
                     <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Update</button>
@@ -65,11 +59,7 @@
     </table>
 
 </div>
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+
 <jsp:include page="../fragments/footer.jsp"/>
 
 </body>

@@ -16,7 +16,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<error-page>
+<!--	<error-page>
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/jsp/error.jsp</location>
 	</error-page>
@@ -28,6 +28,6 @@
 
 	<error-page>
 		<location>/WEB-INF/views/jsp/error.jsp</location>
-	</error-page>
+	</error-page>-->
 
 </web-app>

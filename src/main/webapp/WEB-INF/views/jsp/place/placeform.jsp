@@ -12,7 +12,7 @@
 <div class="container">
 
     <c:choose>
-        <c:when test="${cityForm['new']}">
+        <c:when test="${placeForm['new']}">
             <h1>Add City</h1>
         </c:when>
         <c:otherwise>

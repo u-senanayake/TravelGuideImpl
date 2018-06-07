@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 
-		String sql = "SELECT * FROM users WHERE id=:id";
+		String sql = "SELECT * FROM user WHERE id=:id";
 
 		User result = null;
 		try {
@@ -58,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<User> findAll() {
 
-		String sql = "SELECT * FROM users";
+		String sql = "SELECT * FROM user";
 		List<User> result = namedParameterJdbcTemplate.query(sql, new UserMapper());
 
 		return result;
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao {
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		
-		String sql = "INSERT INTO USERS(NAME, EMAIL, ADDRESS, PASSWORD, NEWSLETTER, FRAMEWORK, SEX, NUMBER, COUNTRY, SKILL) "
+		String sql = "INSERT INTO USER(NAME, EMAIL, ADDRESS, PASSWORD, NEWSLETTER, FRAMEWORK, SEX, NUMBER, COUNTRY, SKILL) "
 				+ "VALUES ( :name, :email, :address, :password, :newsletter, :framework, :sex, :number, :country, :skill)";
 
 		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void update(User user) {
 
-		String sql = "UPDATE USERS SET NAME=:name, EMAIL=:email, ADDRESS=:address, " + "PASSWORD=:password, NEWSLETTER=:newsletter, FRAMEWORK=:framework, "
+		String sql = "UPDATE USER SET NAME=:name, EMAIL=:email, ADDRESS=:address, " + "PASSWORD=:password, NEWSLETTER=:newsletter, FRAMEWORK=:framework, "
 				+ "SEX=:sex, NUMBER=:number, COUNTRY=:country, SKILL=:skill WHERE id=:id";
 
 		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
@@ -91,7 +91,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void delete(Integer id) {
 
-		String sql = "DELETE FROM USERS WHERE id= :id";
+		String sql = "DELETE FROM USER WHERE id= :id";
 		namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id));
 
 	}

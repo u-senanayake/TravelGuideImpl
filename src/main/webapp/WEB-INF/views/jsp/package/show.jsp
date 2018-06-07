@@ -1,14 +1,13 @@
 <%@ page session="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <jsp:include page="../fragments/header.jsp"/>
-
-<body>
 
 <div class="container">
 
@@ -21,9 +20,9 @@
         </div>
     </c:if>
 
-    <h1>All Cities</h1>
-
-    <table id="example" class="table table-striped table-bordered">
+    <h1>Package Detail</h1>
+    <h1>Places</h1>
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>#ID</th>
@@ -63,13 +62,11 @@
             </tr>
         </c:forEach>
     </table>
+    <br/>
+
 
 </div>
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+
 <jsp:include page="../fragments/footer.jsp"/>
 
 </body>

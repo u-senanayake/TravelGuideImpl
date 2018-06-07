@@ -88,7 +88,7 @@ public class PlaceController {
 
         populateDefaultModel(model);
 
-        return "pace/placeform";
+        return "place/placeform";
 
     }
 
